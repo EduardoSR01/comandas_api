@@ -1,5 +1,8 @@
 #EDUARDO DA SILVA RAMOS
 
+#venv\Scripts\activate
+#python .\comandas_api\src\main.py
+
 from fastapi import FastAPI
 from settings import HOST, PORT, RELOAD
 import uvicorn
