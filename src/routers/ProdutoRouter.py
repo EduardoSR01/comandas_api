@@ -1,16 +1,4 @@
-#Campos ID
-#• chave primária, index e auto incremento
-
-#• Campos CPF
-#• unique
-#• index
-
-#• Campo Nome Produto
-#• index
-
-#• Campo Foto Produto
-##• Model • BLOB
-#• BaseModel
+#EDUARDO DA SILVA RAMOS
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session

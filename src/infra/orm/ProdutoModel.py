@@ -1,5 +1,7 @@
+#EDUARDO DA SILVA RAMOS
+
 from infra import database
-from sqlalchemy import Column, VARCHAR, CHAR, Integer
+from sqlalchemy import Column, VARCHAR, Integer, LargeBinary
 
 # ORM
 class ProdutoDB(database.Base):
@@ -8,8 +10,8 @@ class ProdutoDB(database.Base):
     nome = Column(VARCHAR(100), nullable=False)
     descricao = Column(VARCHAR(200), nullable=False)
     valor_unitario = Column(Integer, nullable=False)
-    foto = Column(VARCHAR(200), nullable=False)
-    def _init_(self, id, nome, descricao, valor_unitario, foto):
+    foto = Column(LargeBinary, nullable=True)
+    def __init__(self, id, nome, descricao, valor_unitario, foto):
         self.id = id
         self.nome = nome
         self.descricao = descricao

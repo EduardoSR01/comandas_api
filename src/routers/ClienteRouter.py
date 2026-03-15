@@ -6,9 +6,9 @@ from typing import List
 
 # Domain Schemas
 from domain.schemas.ClienteSchema import (
-    ClienteCreate,
-    ClienteUpdate,
-    ClienteResponse
+ClienteCreate,
+ClienteUpdate,
+ClienteResponse
 )
 # Infra
 from infra.orm.ClienteModel import ClienteDB

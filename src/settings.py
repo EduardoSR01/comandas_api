@@ -1,3 +1,5 @@
+#EDUARDO DA SILVA RAMOS
+
 from dotenv import load_dotenv, find_dotenv
 import os
 # localiza o arquivo de .env
