@@ -7,12 +7,17 @@ from infra.database import get_db
 from infra.security import verify_password, create_access_token, create_refresh_token, verify_refresh_token
 from infra.dependencies import get_current_active_user
 from settings import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_DAYS
+from services.AuditoriaService import AuditoriaService
 router = APIRouter()
 @router.post("/auth/login", response_model=TokenResponse, tags=["Autenticação"], summary="Login de funcionário - pública - retorna access e refresh token")
-async def login(login_data: LoginRequest, db: Session = Depends(get_db)):
+async def login(
+    request: Request,
+    login_data: LoginRequest,
+    db: Session = Depends(get_db)
+):
     """
     Realiza login do funcionário e retorna access token e refresh token
-    - **cpf**: CPF do funcionário - **senha**: Senha do funcionário
+    - *cpf: CPF do funcionário - **senha*: Senha do funcionário
     Retorna: - access_token: Token de curta duração (15 minutos) - refresh_token: Token de longa duração (7 dias)
     """
     try:
@@ -41,6 +46,14 @@ async def login(login_data: LoginRequest, db: Session = Depends(get_db)):
                 "grupo": funcionario.grupo
             }
         )
+        # Registrar auditoria de login
+        AuditoriaService.registrar_acao(
+            db=db,
+            funcionario_id=funcionario.id,
+            acao="LOGIN",
+            recurso="AUTH",
+            request=request
+        )
         return TokenResponse(
             access_token=access_token,
             refresh_token=refresh_token,
@@ -56,7 +69,7 @@ async def login(login_data: LoginRequest, db: Session = Depends(get_db)):
 async def refresh_token(refresh_data: RefreshTokenRequest, db: Session = Depends(get_db)):
     """
     Renova o access token usando um refresh token válido
-    - **refresh_token**: Refresh token válido retornado no login
+    - *refresh_token*: Refresh token válido retornado no login
     Retorna novo access token e refresh token
     """
     try:
