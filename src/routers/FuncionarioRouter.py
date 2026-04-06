@@ -226,4 +226,4 @@ async def delete_funcionario(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erro ao deletar funcionário: {str(e)}"
-        )
+        )        

@@ -35,7 +35,7 @@ media_type="application/json")
     return response
 # Configuração de limites por perfil (carregados do .env)
 RATE_LIMITS = {
-    "critical": os.getenv("RATE_LIMIT_CRITICAL", "5/minute"), # Muito restritivo - Login, refresh, logout, exclusões, operações sensíveis
+    "critical": os.getenv("RATE_LIMIT_CRITICAL", "1/minute"), # Muito restritivo - Login, refresh, logout, exclusões, operações sensíveis
     "restrictive": os.getenv("RATE_LIMIT_RESTRICTIVE", "20/minute"), # Restritivo - Criações, atualizações, exclusões de dados
     "moderate": os.getenv("RATE_LIMIT_MODERATE", "100/minute"), # Moderado - Listagens, buscas por ID, auditoria
     "low": os.getenv("RATE_LIMIT_LOW", "200/minute"), # Baixo - Health checks, endpoints de sistema, documentos
