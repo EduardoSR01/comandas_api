@@ -25,11 +25,11 @@ class AuditoriaService:
                 user_agent = request.headers.get("User-Agent")
             # dados_novos - Converter objeto SQLAlchemy para dicionário antes de serializar
             if dados_novos:
-                if hasattr(dados_novos, '_dict_'):
+                if hasattr(dados_novos, '__dict__'):
                     # É um objeto SQLAlchemy, converter para dicionário
                     dados_novos_dict = {
                         column.name: getattr(dados_novos, column.name)
-                        for column in dados_novos._table_.columns
+                        for column in dados_novos.__table__.columns
                     }
                     dados_novos_json = json.dumps(dados_novos_dict, default=str)
                 else:
@@ -39,11 +39,11 @@ class AuditoriaService:
                 dados_novos_json = None
             # dados_antigos - Converter objeto SQLAlchemy para dicionário antes de serializar
             if dados_antigos:
-                if hasattr(dados_antigos, '_dict_'):
+                if hasattr(dados_antigos, '__dict__'):
                     # É um objeto SQLAlchemy, converter para dicionário
                     dados_antigos_dict = {
                         column.name: getattr(dados_antigos, column.name)
-                        for column in dados_antigos._table_.columns
+                        for column in dados_antigos.__table__.columns
                     }
                     dados_antigos_json = json.dumps(dados_antigos_dict, default=str)
                 else:

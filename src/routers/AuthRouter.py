@@ -8,7 +8,9 @@ from infra.security import verify_password, create_access_token, create_refresh_
 from infra.dependencies import get_current_active_user
 from settings import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_DAYS
 from services.AuditoriaService import AuditoriaService
+
 router = APIRouter()
+
 @router.post("/auth/login", response_model=TokenResponse, tags=["Autenticação"], summary="Login de funcionário - pública - retorna access e refresh token")
 async def login(
     request: Request,
@@ -17,7 +19,7 @@ async def login(
 ):
     """
     Realiza login do funcionário e retorna access token e refresh token
-    - *cpf: CPF do funcionário - **senha*: Senha do funcionário
+    - **cpf**: CPF do funcionário - **senha**: Senha do funcionário
     Retorna: - access_token: Token de curta duração (15 minutos) - refresh_token: Token de longa duração (7 dias)
     """
     try:
@@ -58,7 +60,7 @@ async def login(
             access_token=access_token,
             refresh_token=refresh_token,
             token_type="bearer",
-            expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60, # em segundos
+            expires_in=ACCESS_TOKEN_EXPIRE_MINUTES * 60, # em segundos 
             refresh_expires_in=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60 # em segundos
         )
     except HTTPException:
@@ -69,7 +71,7 @@ async def login(
 async def refresh_token(refresh_data: RefreshTokenRequest, db: Session = Depends(get_db)):
     """
     Renova o access token usando um refresh token válido
-    - *refresh_token*: Refresh token válido retornado no login
+    - **refresh_token**: Refresh token válido retornado no login
     Retorna novo access token e refresh token
     """
     try:
